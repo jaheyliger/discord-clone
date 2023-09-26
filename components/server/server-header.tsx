@@ -1,6 +1,6 @@
 'use client';
 
-// import { ServerWithMembersWithProfiles } from '@/types';
+import { ServerWithMembersWithProfiles } from '@/types';
 import { MemberRole } from '@prisma/client';
 import {
 	ChevronDown,
@@ -22,8 +22,7 @@ import {
 import { useModal } from '../hooks/use-modal-store';
 
 interface ServerHeaderProps {
-    server: any
-	// server: ServerWithMembersWithProfiles;
+	server: ServerWithMembersWithProfiles;
 	role?: MemberRole;
 }
 
