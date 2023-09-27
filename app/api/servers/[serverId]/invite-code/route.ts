@@ -11,13 +11,9 @@ export async function PATCH(
 	try {
 		const profile = await currentProfile();
 
-		if (!profile) {
-			return new NextResponse('Unauthorized', { status: 401 });
-		}
-
-		if (!params.serverId) {
+		if (!profile) return new NextResponse('Unauthorized', { status: 401 });
+		if (!params.serverId)
 			return new NextResponse('Server ID Missing', { status: 400 });
-		}
 
 		const server = await db.server.update({
 			where: {
