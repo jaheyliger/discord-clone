@@ -43,7 +43,7 @@ const ChannelIdPage = async ({ params }: ChannelIdPageProps) => {
 				serverId={channel.serverId}
 				type='channel'
 			/>
-			{/* {channel.type === ChannelType.TEXT && (
+			{channel.type === ChannelType.TEXT && (
 				<>
 					<ChatMessages
 						member={member}
@@ -69,7 +69,7 @@ const ChannelIdPage = async ({ params }: ChannelIdPageProps) => {
 						}}
 					/>
 				</>
-			)} */}
+			)}
 			{/* {channel.type === ChannelType.AUDIO && (
 				<MediaRoom chatId={channel.id} video={false} audio={true} />
 			)}
