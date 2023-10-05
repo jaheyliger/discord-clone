@@ -7,12 +7,12 @@ import { currentProfile } from '@/lib/current-profile';
 import { ChatHeader } from '@/components/chat/chat-header';
 import { ChatMessages } from '@/components/chat/chat-messages';
 import { ChatInput } from '@/components/chat/chat-input';
-// import { MediaRoom } from '@/components/media-room';
+import { MediaRoom } from '@/components/media-room'
 
 interface MemberIdPageProps {
 	params: {
 		memberId: string;
-		serverId: string;
+		serverid: string;
 	};
 	searchParams: {
 		video?: boolean;
@@ -28,7 +28,7 @@ const MemberIdPage = async ({ params, searchParams }: MemberIdPageProps) => {
 
 	const currentMember = await db.member.findFirst({
 		where: {
-			serverId: params.serverId,
+			serverId: params.serverid,
 			profileId: profile.id
 		},
 		include: {
@@ -46,7 +46,7 @@ const MemberIdPage = async ({ params, searchParams }: MemberIdPageProps) => {
 	);
 
 	if (!conversation) {
-		return redirect(`/servers/${params.serverId}`);
+		return redirect(`/servers/${params.serverid}`);
 	}
 
 	const { memberOne, memberTwo } = conversation;
@@ -59,13 +59,13 @@ const MemberIdPage = async ({ params, searchParams }: MemberIdPageProps) => {
 			<ChatHeader
 				imageUrl={otherMember.profile.imageUrl}
 				name={otherMember.profile.name}
-				serverId={params.serverId}
+				serverId={params.serverid}
 				type='conversation'
 			/>
-			{/* {searchParams.video && (
+			{searchParams.video && (
 				<MediaRoom chatId={conversation.id} video={true} audio={true} />
-			)} */}
-			{/* {!searchParams.video && (
+			)}
+			{!searchParams.video && (
 				<>
 					<ChatMessages
 						member={currentMember}
@@ -89,7 +89,7 @@ const MemberIdPage = async ({ params, searchParams }: MemberIdPageProps) => {
 						}}
 					/>
 				</>
-			)} */}
+			)}
 		</div>
 	);
 };
