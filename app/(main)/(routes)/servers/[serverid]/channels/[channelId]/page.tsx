@@ -3,15 +3,15 @@ import { redirect } from 'next/navigation';
 import { ChannelType } from '@prisma/client';
 
 import { currentProfile } from '@/lib/current-profile';
-// import { ChatHeader } from '@/components/chat/chat-header';
-// import { ChatInput } from '@/components/chat/chat-input';
-// import { ChatMessages } from '@/components/chat/chat-messages';
+import { ChatHeader } from '../../../../../../../components/chat/chat-header';
+import { ChatInput } from '../../../../../../../components/chat/chat-input';
+import { ChatMessages } from '@/components/chat/chat-messages';
 // import { MediaRoom } from '@/components/media-room';
 import { db } from '@/lib/db';
 
 interface ChannelIdPageProps {
 	params: {
-		serverId: string;
+		serverid: string;
 		channelId: string;
 	};
 }
@@ -19,9 +19,7 @@ interface ChannelIdPageProps {
 const ChannelIdPage = async ({ params }: ChannelIdPageProps) => {
 	const profile = await currentProfile();
 
-	if (!profile) {
-		return redirectToSignIn();
-	}
+	if (!profile) return redirectToSignIn();
 
 	const channel = await db.channel.findUnique({
 		where: {
@@ -31,22 +29,20 @@ const ChannelIdPage = async ({ params }: ChannelIdPageProps) => {
 
 	const member = await db.member.findFirst({
 		where: {
-			serverId: params.serverId,
+			serverId: params.serverid,
 			profileId: profile.id
 		}
 	});
 
-	if (!channel || !member) {
-		redirect('/');
-	}
+	if (!channel || !member) redirect('/');
 
 	return (
 		<div className='bg-white dark:bg-[#313338] flex flex-col h-full'>
-			{/* <ChatHeader
+			<ChatHeader
 				name={channel.name}
 				serverId={channel.serverId}
 				type='channel'
-			/> */}
+			/>
 			{/* {channel.type === ChannelType.TEXT && (
 				<>
 					<ChatMessages
@@ -73,8 +69,8 @@ const ChannelIdPage = async ({ params }: ChannelIdPageProps) => {
 						}}
 					/>
 				</>
-			)}
-			{channel.type === ChannelType.AUDIO && (
+			)} */}
+			{/* {channel.type === ChannelType.AUDIO && (
 				<MediaRoom chatId={channel.id} video={false} audio={true} />
 			)}
 			{channel.type === ChannelType.VIDEO && (
